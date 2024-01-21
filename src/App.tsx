@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [answer, setAnswer] = useState("");
+  const [result, setResult] = useState("");
   const [expression, setExpression] = useState("");
   const et = expression.trim();
 
@@ -12,16 +12,16 @@ function App() {
 
   const buttonPress = (symbol: string) => {
     if (symbol === "clear") {
-      setAnswer("");
+      setResult("");
       setExpression("0");
     } else if (symbol === "negative") {
-      if (answer === "") return;
-      setAnswer(
-        answer.toString().charAt(0) === "-" ? answer.slice(1) : "-" + answer
+      if (result === "") return;
+      setResult(
+        result.toString().charAt(0) === "-" ? result.slice(1) : "-" + result
       );
     } else if (symbol === "percent") {
-      if (answer === "") return;
-      setAnswer((parseFloat(answer) / 100).toString());
+      if (result === "") return;
+      setResult((parseFloat(result) / 100).toString());
     } else if (isOperator(symbol)) {
       setExpression(et + " " + symbol + " ");
     } else if (symbol === "=") {
@@ -72,9 +72,9 @@ function App() {
     }
     const newExpression = newParts.join(" ");
     if (isOperator(newExpression.charAt(0))) {
-      setAnswer(eval(answer + newExpression) as string);
+      setResult(eval(result + newExpression) as string);
     } else {
-      setAnswer(eval(newExpression) as string);
+      setResult(eval(newExpression) as string);
     }
     setExpression("");
   };
@@ -82,10 +82,10 @@ function App() {
   return (
     <>
       <div className="container">
-        <h1>Calculator Application</h1>
+        <h1>Calculator App</h1>
         <div id="calculator">
           <div id="display" style={{ textAlign: "right" }}>
-            <div id="answer">{answer}</div>
+            <div id="result">{result}</div>
             <div id="expression">{expression}</div>
           </div>
           <button
